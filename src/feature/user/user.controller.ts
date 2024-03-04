@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller} from '@nestjs/common';
+import { TypedRoute, TypedParam ,TypedBody } from "@nestia/core";
 import {
     ManyRecordsResponse,
     ResponseWrap,
@@ -13,66 +14,123 @@ export class UserController {
         private readonly userService: UserService
     ) {}
 
-    @Post()
-    create(@Body() userDto: UserDto.Create): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Create a new user
+     * @tag User
+     * 
+     * @param userDto
+     */
+    @TypedRoute.Post()
+    create(@TypedBody() userDto: UserDto.Create): Promise<SingleRecordResponse<UserDto.Response>> {
         const entity = new UserDto.Root(userDto).getEntity();
         return this.userService.create(entity).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Get()
+    /**
+     * Get all users
+     * @tag User
+     * 
+     */
+    @TypedRoute.Get()
     findAll(): Promise<ManyRecordsResponse<UserDto.Response>> {
         return this.userService.findAll().then((users) => {
             return ResponseWrap.many(users.map(UserDto.createFromEntities));
         });
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Get a user by id
+     * @tag User
+     * 
+     * @param id
+     */
+    @TypedRoute.Get(':id')
+    findOne(@TypedParam('id') id: string): Promise<SingleRecordResponse<UserDto.Response>> {
         return this.userService.findOne(+id).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() userDto: UserDto.Update): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Update a user by id
+     * @tag User
+     * 
+     * @param id
+     */
+    @TypedRoute.Patch(':id')
+    update(@TypedParam('id') id: string, @TypedBody() userDto: UserDto.Update): Promise<SingleRecordResponse<UserDto.Response>> {
         const entity = new UserDto.Root(userDto).getEntity();
         return this.userService.update(+id, entity).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Remove a user by id
+     * @tag User
+     * 
+     * @param id
+     */
+    @TypedRoute.Delete(':id')
+    remove(@TypedParam('id') id: string): Promise<SingleRecordResponse<UserDto.Response>> {
         return this.userService.remove(+id).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Post(':userId/role/:roleId')
-    assignRoleToUser(@Param('userId') userId: string, @Param('roleId') roleId: string): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Assign a role to a user
+     * @tag User
+     * 
+     * @param userId
+     * @param roleId
+     */
+    @TypedRoute.Post(':userId/role/:roleId')
+    assignRoleToUser(@TypedParam('userId') userId: string, @TypedParam('roleId') roleId: string): Promise<SingleRecordResponse<UserDto.Response>> {
         return this.userService.assignRoleToUser(+userId, +roleId).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Delete(':userId/role/:roleId')
-    removeRoleFromUser(@Param('userId') userId: string, @Param('roleId') roleId: string): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Remove a role from a user
+     * @tag User
+     * 
+     * @param userId
+     * @param roleId
+     */
+    @TypedRoute.Delete(':userId/role/:roleId')
+    removeRoleFromUser(@TypedParam('userId') userId: string, @TypedParam('roleId') roleId: string): Promise<SingleRecordResponse<UserDto.Response>> {
         return this.userService.removeRoleFromUser(+userId, +roleId).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Post(':userId/permission/:permissionId')
-    assignPermissionToUser(@Param('userId') userId: string, @Param('permissionId') permissionId: string): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Assign a permission to a user
+     * @tag User
+     * 
+     * @param userId
+     * @param permissionId
+     */
+    @TypedRoute.Post(':userId/permission/:permissionId')
+    assignPermissionToUser(@TypedParam('userId') userId: string, @TypedParam('permissionId') permissionId: string): Promise<SingleRecordResponse<UserDto.Response>> {
         return this.userService.assignPermissionToUser(+userId, +permissionId).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });
     }
 
-    @Delete(':userId/permission/:permissionId')
-    removePermissionFromUser(@Param('userId') userId: string, @Param('permissionId') permissionId: string): Promise<SingleRecordResponse<UserDto.Response>> {
+    /**
+     * Remove a permission from a user
+     * @tag User
+     * 
+     * @param userId
+     * @param permissionId
+     */
+    @TypedRoute.Delete(':userId/permission/:permissionId')
+    removePermissionFromUser(@TypedParam('userId') userId: string, @TypedParam('permissionId') permissionId: string): Promise<SingleRecordResponse<UserDto.Response>> {
         return this.userService.removePermissionFromUser(+userId, +permissionId).then((user) => {
             return ResponseWrap.single(UserDto.createFromEntities(user));
         });

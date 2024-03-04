@@ -19,8 +19,8 @@ export class ModuleService {
         return this.moduleRepository.find();
     }
 
-    findOne(id: number): Promise<ModuleEntity>{
-        const module = this.moduleRepository.findOneBy({id})
+    async findOne(id: number): Promise<ModuleEntity>{
+        const module = await this.moduleRepository.findOneBy({id})
         if (!module) {
             throw new NotFoundException('Module not found');
         }
@@ -28,9 +28,9 @@ export class ModuleService {
     }
 
    async update(id: number, moduleEntity: ModuleEntity) : Promise<ModuleEntity>{
-        const module = await this.findOne(id);
+        await this.findOne(id);
         await this.moduleRepository.update(id, moduleEntity);
-        return module;
+        return this.findOne(id);
     }
 
     async remove(id: number) : Promise<ModuleEntity>{
