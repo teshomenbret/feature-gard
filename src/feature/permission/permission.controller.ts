@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller} from '@nestjs/common';
+import { TypedRoute, TypedParam ,TypedBody } from "@nestia/core";
 import {
     ManyRecordsResponse,
     ResponseWrap,
@@ -12,54 +13,96 @@ export class PermissionController {
     constructor(
         private readonly permissionService: PermissionService
     ) {}
-
-    @Post()
-    create(@Body() permissionDto: PermissionDto.Create): Promise<SingleRecordResponse<PermissionDto.Response>> {
+    
+    /**
+     * Create a new permission
+     * @tag Permission
+     * 
+     * @param permissionDto
+     */
+    @TypedRoute.Post()
+    create(@TypedBody() permissionDto: PermissionDto.Create): Promise<SingleRecordResponse<PermissionDto.Response>> {
         const entity = new PermissionDto.Root(permissionDto).getEntity();
         return this.permissionService.create(entity).then((permission) => {
             return ResponseWrap.single(PermissionDto.createFromEntities(permission));
         });
     }
 
-    @Get()
+    /**
+     * Get all permissions
+     * @tag Permission
+     * 
+     */
+    @TypedRoute.Get()
     findAll(): Promise<ManyRecordsResponse<PermissionDto.Response>> {
         return this.permissionService.findAll().then((permissions) => {
             return ResponseWrap.many(permissions.map(PermissionDto.createFromEntities));
         });
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<SingleRecordResponse<PermissionDto.Response>> {
+    /**
+     * Get a permission by id
+     * @tag Permission
+     * 
+     * @param id
+     */
+    @TypedRoute.Get(':id')
+    findOne(@TypedParam('id') id: string): Promise<SingleRecordResponse<PermissionDto.Response>> {
         return this.permissionService.findOne(+id).then((permission) => {
             return ResponseWrap.single(PermissionDto.createFromEntities(permission));
         });
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() permissionDto: PermissionDto.Update): Promise<SingleRecordResponse<PermissionDto.Response>> {
+    /**
+     * Update a permission by id
+     * @tag Permission
+     * 
+     * @param id
+     */
+    @TypedRoute.Patch(':id')
+    update(@TypedParam('id') id: string, @TypedBody() permissionDto: PermissionDto.Update): Promise<SingleRecordResponse<PermissionDto.Response>> {
         const entity = new PermissionDto.Root(permissionDto).getEntity();
         return this.permissionService.update(+id, entity).then((permission) => {
             return ResponseWrap.single(PermissionDto.createFromEntities(permission));
         });
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string): Promise<SingleRecordResponse<PermissionDto.Response>> {
+    /**
+     * Delete a permission by id
+     * @tag Permission
+     * 
+     * @param id
+     */
+    @TypedRoute.Delete(':id')
+    remove(@TypedParam('id') id: string): Promise<SingleRecordResponse<PermissionDto.Response>> {
         return this.permissionService.remove(+id).then((permission) => {
             return ResponseWrap.single(PermissionDto.createFromEntities(permission));
         });
     }
 
-    @Post(':featureId')
-    createForFeature(@Param('featureId') featureId: string, @Body() permissionDto: PermissionDto.Create): Promise<SingleRecordResponse<PermissionDto.Response>> {
+    /**
+     * Get all permissions for a feature
+     * @tag Permission
+     * 
+     * @param featureId
+     */
+    @TypedRoute.Post(':featureId')
+    createForFeature(@TypedParam('featureId') featureId: string, @TypedBody() permissionDto: PermissionDto.Create): Promise<SingleRecordResponse<PermissionDto.Response>> {
         const entity = new PermissionDto.Root(permissionDto).getEntity();
         return this.permissionService.createForFeature(+featureId, entity).then((permission) => {
             return ResponseWrap.single(PermissionDto.createFromEntities(permission));
         });
     }
 
-    @Patch(':featureId/:permissionId')
-    assignToFeature(@Param('featureId') featureId: string, @Param('permissionId') permissionId: string): Promise<SingleRecordResponse<PermissionDto.Response>> {
+    /**
+     * Assign a permission to a feature
+     * @tag Permission
+     * 
+     * @param featureId
+     * @param permissionId
+     */
+    @TypedRoute.Patch(':featureId/:permissionId')
+    assignToFeature(@TypedParam('featureId') featureId: string, @TypedParam('permissionId') permissionId: string): Promise<SingleRecordResponse<PermissionDto.Response>> {
         return this.permissionService.assignToFeature(+featureId, +permissionId).then((permission) => {
             return ResponseWrap.single(PermissionDto.createFromEntities(permission));
         });

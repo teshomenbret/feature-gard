@@ -5,9 +5,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { FeatureModule } from './feature/feature.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { join } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..'),
+    //   renderPath: 'assets',
+    //   serveStaticOptions: { index: true },
+    // }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

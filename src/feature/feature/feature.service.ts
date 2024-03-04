@@ -16,6 +16,9 @@ export class FeatureService {
   ) { }
 
   create(featureEntity: FeatureEntity) {
+    if(featureEntity.moduleId !== null && featureEntity.moduleId !== undefined) {
+      return this.createForModule(featureEntity.moduleId, featureEntity);
+    }
     return this.featureRepository.save(featureEntity);
   }
 
@@ -38,8 +41,10 @@ export class FeatureService {
     return this.featureRepository.find();
   }
 
-  findOne(id: number) {
-    const feature = this.featureRepository.findOneBy({id})
+  async findOne(id: number) {
+    const feature = await this.featureRepository.findOne({
+      where: { id: id},
+    });
     if (!feature) {
       throw new NotFoundException('Feature not found');
     }
@@ -47,9 +52,9 @@ export class FeatureService {
   }
 
   async update(id: number, featureEntity: FeatureEntity): Promise<FeatureEntity> {
-    const feature = await this.findOne(id);
+    await this.findOne(id);
     await this.featureRepository.update(id, featureEntity);
-    return feature;
+    return this.findOne(id);
   }
 
   async remove(id: number): Promise<FeatureEntity> {

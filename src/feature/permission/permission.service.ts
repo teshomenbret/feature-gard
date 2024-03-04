@@ -37,8 +37,8 @@ export class PermissionService {
         return this.permissionRepository.find();
     }
 
-    findOne(id: number): Promise<PermissionEntity>{
-        const permission = this.permissionRepository.findOneBy({id})
+    async findOne(id: number): Promise<PermissionEntity>{
+        const permission = await this.permissionRepository.findOneBy({id})
         if (!permission) {
             throw new NotFoundException('Permission not found');
         }

@@ -23,8 +23,8 @@ export namespace FeatureDto {
         const dto = new Root();
         dto.key = entity.id.toString();
         dto.name = entity.name;
-        dto.moduleId = entity.moduleId;
-        dto.module = ModuleDto.createFromEntities(entity.module);
+        dto.moduleId = entity.moduleId?.valueOf();
+        dto.module = entity.module ? ModuleDto.createFromEntities(entity.module) : undefined;
         return dto;
     }
 

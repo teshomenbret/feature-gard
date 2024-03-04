@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller} from '@nestjs/common';
+import { TypedRoute, TypedParam ,TypedBody } from "@nestia/core";
 import {
     ManyRecordsResponse,
     ResponseWrap,
@@ -13,38 +14,69 @@ export class ModuleController {
         private readonly moduleService: ModuleService
     ) {}
 
-    @Post()
-    create(@Body() moduleDto: ModuleDto.Create): Promise<SingleRecordResponse<ModuleDto.Response>> {
+    /**
+     * Create a new module
+     * @tag Module
+     * 
+     * @param moduleDto
+     */
+    @TypedRoute.Post()
+    create(@TypedBody() moduleDto: ModuleDto.Create): Promise<SingleRecordResponse<ModuleDto.Response>> {
         const entity = new ModuleDto.Root(moduleDto).getEntity();
         return this.moduleService.create(entity).then((module) => {
             return ResponseWrap.single(ModuleDto.createFromEntities(module));
         });
     }
+    /**
+     * Get all modules
+     * @tag Module
+     * 
+     * @param moduleDto
+     */
 
-    @Get()
+    @TypedRoute.Get()
     findAll(): Promise<ManyRecordsResponse<ModuleDto.Response>> {
         return this.moduleService.findAll().then((modules) => {
             return ResponseWrap.many(modules.map(ModuleDto.createFromEntities));
         });
     }
 
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<SingleRecordResponse<ModuleDto.Response>> {
+    /**
+     * Get a module by id
+     * @tag Module
+     * 
+     * @param id
+     */
+    @TypedRoute.Get(':id')
+    findOne(@TypedParam('id') id: string): Promise<SingleRecordResponse<ModuleDto.Response>> {
         return this.moduleService.findOne(+id).then((module) => {
             return ResponseWrap.single(ModuleDto.createFromEntities(module));
         });
     }
 
-    @Patch(':id')
-    update(@Param('id') id: string, @Body() moduleDto: ModuleDto.Update): Promise<SingleRecordResponse<ModuleDto.Response>> {
+    /**
+     * Update a module by id
+     * @tag Module
+     * 
+     * @param id 
+     * @param moduleDto 
+     */
+    @TypedRoute.Patch(':id')
+    update(@TypedParam('id') id: string, @TypedBody() moduleDto: ModuleDto.Update): Promise<SingleRecordResponse<ModuleDto.Response>> {
         const entity = new ModuleDto.Root(moduleDto).getEntity();
         return this.moduleService.update(+id, entity).then((module) => {
             return ResponseWrap.single(ModuleDto.createFromEntities(module));
         });
     }
 
-    @Delete(':id')
-    remove(@Param('id') id: string): Promise<SingleRecordResponse<ModuleDto.Response>> {
+    /**
+     * Delete a module by id
+     * @tag Module
+     * 
+     * @param id
+     */
+    @TypedRoute.Delete(':id')
+    remove(@TypedParam('id') id: string): Promise<SingleRecordResponse<ModuleDto.Response>> {
         return this.moduleService.remove(+id).then((module) => {
             return ResponseWrap.single(ModuleDto.createFromEntities(module));
         });

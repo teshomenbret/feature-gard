@@ -1,0 +1,1672 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "version": "0.0.1",
+    "title": "feature-gard",
+    "description": "",
+    "license": {
+      "name": "UNLICENSED"
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feature": {
+      "post": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeatureDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new feature"
+      },
+      "get": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManyRecordsResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all features"
+      }
+    },
+    "/feature/{id}": {
+      "get": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a feature by id"
+      },
+      "patch": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialFeatureDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update a feature by id"
+      },
+      "delete": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete a feature by id"
+      }
+    },
+    "/feature/{moduleId}": {
+      "post": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "moduleId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeatureDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new feature for a module"
+      }
+    },
+    "/feature/{moduleId}/{featureId}": {
+      "post": {
+        "tags": [
+          "Feature"
+        ],
+        "parameters": [
+          {
+            "name": "moduleId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "featureId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseFeatureDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Assign a feature to a module"
+      }
+    },
+    "/module": {
+      "post": {
+        "tags": [
+          "Module"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModuleDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseModuleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new module"
+      },
+      "get": {
+        "tags": [
+          "Module"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManyRecordsResponseModuleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all modules"
+      }
+    },
+    "/module/{id}": {
+      "get": {
+        "tags": [
+          "Module"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseModuleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a module by id"
+      },
+      "patch": {
+        "tags": [
+          "Module"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialModuleDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseModuleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update a module by id"
+      },
+      "delete": {
+        "tags": [
+          "Module"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseModuleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete a module by id"
+      }
+    },
+    "/role": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoleDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new role"
+      },
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManyRecordsResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all roles"
+      }
+    },
+    "/role/{id}": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a role by id"
+      },
+      "patch": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialRoleDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update a role by id"
+      },
+      "delete": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete a role by id"
+      }
+    },
+    "/role/{roleId}/permission/{permissionId}": {
+      "post": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Assign a permission to a role"
+      },
+      "delete": {
+        "tags": [
+          "Role"
+        ],
+        "parameters": [
+          {
+            "name": "roleId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseRoleDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Remove a permission from a role"
+      }
+    },
+    "/permission": {
+      "post": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new permission"
+      },
+      "get": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManyRecordsResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all permissions"
+      }
+    },
+    "/permission/{id}": {
+      "get": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a permission by id"
+      },
+      "patch": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialPermissionDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update a permission by id"
+      },
+      "delete": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Delete a permission by id"
+      }
+    },
+    "/permission/{featureId}": {
+      "post": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "featureId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PermissionDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all permissions for a feature"
+      }
+    },
+    "/permission/{featureId}/{permissionId}": {
+      "patch": {
+        "tags": [
+          "Permission"
+        ],
+        "parameters": [
+          {
+            "name": "featureId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponsePermissionDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Assign a permission to a feature"
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new user"
+      },
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManyRecordsResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get all users"
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Get a user by id"
+      },
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartialUserDto.Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update a user by id"
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Remove a user by id"
+      }
+    },
+    "/user/{userId}/role/{roleId}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "roleId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Assign a role to a user"
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "roleId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Remove a role from a user"
+      }
+    },
+    "/user/{userId}/permission/{permissionId}": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Assign a permission to a user"
+      },
+      "delete": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          },
+          {
+            "name": "permissionId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleRecordResponseUserDto.Root"
+                }
+              }
+            }
+          }
+        },
+        "description": "Remove a permission from a user"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FeatureDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "SingleRecordResponseFeatureDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/FeatureDto.Root"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "result"
+        ]
+      },
+      "FeatureDto.Root": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": "number"
+          },
+          "module": {
+            "$ref": "#/components/schemas/ModuleDto.Root"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "ModuleDto.Root": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "ManyRecordsResponseFeatureDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "total"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureDto.Root"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "metadata",
+          "data"
+        ]
+      },
+      "PartialFeatureDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "description": "Make all properties in T optional"
+      },
+      "ModuleDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "SingleRecordResponseModuleDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ModuleDto.Root"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "result"
+        ]
+      },
+      "ManyRecordsResponseModuleDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "total"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ModuleDto.Root"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "metadata",
+          "data"
+        ]
+      },
+      "PartialModuleDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "description": "Make all properties in T optional"
+      },
+      "RoleDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "SingleRecordResponseRoleDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/RoleDto.Root"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "result"
+        ]
+      },
+      "RoleDto.Root": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "ManyRecordsResponseRoleDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "total"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RoleDto.Root"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "metadata",
+          "data"
+        ]
+      },
+      "PartialRoleDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "description": "Make all properties in T optional"
+      },
+      "PermissionDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "featureId": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "SingleRecordResponsePermissionDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/PermissionDto.Root"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "result"
+        ]
+      },
+      "PermissionDto.Root": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "featureId": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "name"
+        ]
+      },
+      "ManyRecordsResponsePermissionDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "total"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionDto.Root"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "metadata",
+          "data"
+        ]
+      },
+      "PartialPermissionDto.Create": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "featureId": {
+            "type": "number"
+          }
+        },
+        "nullable": false,
+        "description": "Make all properties in T optional"
+      },
+      "UserDto.Create": {
+        "type": "object",
+        "properties": {
+          "systemId": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "systemId"
+        ]
+      },
+      "SingleRecordResponseUserDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "result": {
+            "$ref": "#/components/schemas/UserDto.Root"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "result"
+        ]
+      },
+      "UserDto.Root": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "systemId": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "required": [
+          "systemId"
+        ]
+      },
+      "ManyRecordsResponseUserDto.Root": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "total": {
+                "type": "number"
+              }
+            },
+            "nullable": false,
+            "required": [
+              "total"
+            ]
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserDto.Root"
+            }
+          }
+        },
+        "nullable": false,
+        "required": [
+          "success",
+          "metadata",
+          "data"
+        ]
+      },
+      "PartialUserDto.Create": {
+        "type": "object",
+        "properties": {
+          "systemId": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        },
+        "nullable": false,
+        "description": "Make all properties in T optional"
+      }
+    },
+    "securitySchemes": {
+      "web_refresh_token": {
+        "type": "apiKey",
+        "name": "_refresh_token",
+        "in": "cookie"
+      },
+      "refresh_token": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      },
+      "access_token": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
